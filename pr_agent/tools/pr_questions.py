@@ -128,5 +128,6 @@ class PRQuestions:
 
 
         answer_str = f"### **Ask**❓\n{self.question_str}\n\n"
-        answer_str += f"### **Answer:**\n{model_answer_sanitized}\n\n"
+        tempstr = "Answer(来自"+ get_settings().config.model+"):"
+        answer_str += f"### **{tempstr}**\n{model_answer_sanitized}\n\n"  
         return answer_str
