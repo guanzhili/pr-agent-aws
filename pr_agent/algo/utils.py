@@ -47,8 +47,8 @@ class ModelType(str, Enum):
     WEAK = "weak"
 
 class PRReviewHeader(str, Enum):
-    REGULAR = "## PR Reviewer Guide"
-    INCREMENTAL = "## Incremental PR Reviewer Guide"
+    REGULAR = "## PR Reviewer Guide by " + get_settings().config.model
+    INCREMENTAL = "## Incremental PR Reviewer Guide by " + get_settings().config.model
 
 class ReasoningEffort(str, Enum):
     HIGH = "high"
