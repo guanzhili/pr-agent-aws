@@ -135,7 +135,7 @@ new_score_mechanism_th_high=9
 new_score_mechanism_th_medium=7
 # params for '/improve --extended' mode
 auto_extended_mode=true
-num_code_suggestions_per_chunk=4
+num_code_suggestions_per_chunk=100
 max_number_of_calls = 3
 parallel_calls = true
 
@@ -158,7 +158,7 @@ The code suggestions should focus only on the following:
 ...
 """
 suggestions_score_threshold=0
-num_code_suggestions_per_chunk=4
+num_code_suggestions_per_chunk=100
 self_reflect_on_custom_suggestions=true
 enable_help_text=false
 
@@ -187,7 +187,7 @@ class_name = ""        # in case there are several methods with the same name in
 enable_help_text=false
 
 [pr_improve_component] # /improve_component #
-num_code_suggestions=4
+num_code_suggestions=100
 extra_instructions = ""
 file = ""              # in case there are several components with the same name, you can specify the relevant file
 class_name = ""        # in case there are several methods with the same name in the same file, you can specify the relevant class name

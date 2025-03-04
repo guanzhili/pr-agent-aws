@@ -701,7 +701,7 @@ class PRCodeSuggestions:
 
     def generate_summarized_suggestions(self, data: Dict) -> str:
         try:
-            pr_body = "## PR Code Suggestions ✨\n\n"
+            pr_body = "## PR Code Suggestions by " + get_settings().config.model + " ✨\n\n"
 
             if len(data.get('code_suggestions', [])) == 0:
                 pr_body += "No suggestions found to improve this PR."
