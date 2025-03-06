@@ -30,13 +30,38 @@ def github_webhook():
     
     return '', 200
 
+
+@app.route('/gitlab-webhook', methods=['POST'])
+def gitlab_webhook():
+    data = request.json
+    print(f"Received webhook data: {data}")
+    
+    # 检查是否为评论事件
+    if 'object_attributes' in data and data['object_attributes']['noteable_type'] == 'MergeRequest':
+        comment = data['object_attributes']['note']
+        
+        print(f"full comment is: {comment}")
+
+        # 检查评论中是否包含 REVIEW_TRIGGER
+        if REVIEW_TRIGGER in comment:
+            print(f"full comment contains: {REVIEW_TRIGGER}")
+            pr_url = data['merge_request']['url']
+            
+            # 去掉 REVIEW_TRIGGER 部分，获取剩余的评论内容
+            comment_content = comment.replace(REVIEW_TRIGGER, '').strip()
+            
+            # 调用 Python 任务，传递 PR URL 和评论内容
+            trigger_python_task(pr_url, comment_content)
+    
+    return '', 200
+
 import subprocess
 
 def trigger_python_task(pr_url, comment):
     # 执行命令并捕获输出
     print(f"Debug message: pr_url is {pr_url}")
     print(f"Debug message: comment is {comment}")
-    
+    comment = comment.replace('"', '').replace("'", '')
     cmd = ['python3', '-m', 'pr_agent.cli', '--pr_url', pr_url] + shlex.split(comment)
     result = subprocess.run(cmd, capture_output=True, text=True)
     
